@@ -180,7 +180,7 @@ export default function ReportsPage() {
                     req.jobTitle,
                     approved ? "Approved" : "Pending",
                     organogram ? (
-                      <a href={`http://localhost:8080/uploads/${organogram.fileName}`} target="_blank" className="text-blue-600 underline">View</a>
+                      <a href={`${BASE_URL}/uploads/${organogram.fileName}`} target="_blank" className="text-blue-600 underline">View</a>
                     ) : 'N/A'
                   ];
                 })}

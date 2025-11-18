@@ -1,6 +1,8 @@
 import { useMsal } from "@azure/msal-react";
 
-export const BASE_URL = "http://localhost:8080";
+// export const BASE_URL = "http://localhost:8080";
+export const BASE_URL = "https://backend-5-offu.onrender.com";
+
 
 export const loginRequest = {
   scopes: ["User.Read", "OnlineMeetings.ReadWrite"],

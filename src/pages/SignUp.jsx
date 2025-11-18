@@ -220,7 +220,7 @@ const handleSignUpSubmit = async (e) => {
     const handleResendOTP = async () => {
         try {
             // eslint-disable-next-line no-unused-vars
-            const response = await fetch(`http://localhost:8080/auth/otp/send`, {
+            const response = await fetch(`${BASE_URL}/auth/otp/send`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
