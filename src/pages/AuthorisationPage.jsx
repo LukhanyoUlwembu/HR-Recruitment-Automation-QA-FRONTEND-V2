@@ -13,52 +13,62 @@ const AuthPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showErrorPopup, setShowErrorPopup] = useState(false);
 
-  const handleLogin = async () => {
-    setIsLoading(true);
-    
-    try {
-      // Clear previous session data
-      sessionStorage.clear();
+ const handleLogin = async () => {
+  setIsLoading(true);
+  setShowErrorPopup(false);
 
-      // First click just initiates Microsoft auth flow
-      if (!showFirstClickMessage) {
-        await login();
-        setShowFirstClickMessage(true);
-        setIsLoading(false);
-        return;
-      }
+  try {
+    // Clear previous session data
+    sessionStorage.clear();
 
-      // Second click completes the process
-      const acc = getAccount();
-      if (!acc?.username) {
-        throw new Error("Account information not available - please try again");
-      }
-
-      // Fetch user profile
-      // const response = await fetch(`${BASE_URL}/employees/${acc.username}`);
-      const response = await fetch(
-  `${BASE_URL}/employees/${encodeURIComponent(acc.username)}`
-);
-
-      if (!response.ok) throw new Error("Profile fetch failed");
-      
-      const data = await response.json();
-      if (!data?.role) throw new Error("Invalid profile data");
-
-      // Store session data
-      sessionStorage.setItem("empEmail", acc.username);
-      sessionStorage.setItem("empName", acc.name);
-      sessionStorage.setItem("role", data.role.name);
-
-      navigate("/dashboard");
-    } catch (err) {
-      console.error("Login error:", err);
-      setShowFirstClickMessage(false); 
-       setShowErrorPopup(true);
-    } finally {
+    // First click initiates Microsoft auth flow
+    if (!showFirstClickMessage) {
+      await login();
+      setShowFirstClickMessage(true);
       setIsLoading(false);
+      return;
     }
-  };
+
+    // Second click completes the login process
+    const acc = getAccount();
+    if (!acc?.username) {
+      throw new Error("Account information not available - please try again");
+    }
+
+    // Fetch employee profile from Render backend
+    const response = await fetch(`${BASE_URL}/employees/${encodeURIComponent(acc.username)}`);
+
+    if (response.status === 404) {
+      throw new Error("Employee not found in the system");
+    }
+
+    if (!response.ok) {
+      const text = await response.text();
+      throw new Error(`Profile fetch failed: ${response.status} - ${text}`);
+    }
+
+    const data = await response.json();
+
+    if (!data || !data.role) {
+      throw new Error("Invalid profile data received from server");
+    }
+
+    // Store session data
+    sessionStorage.setItem("empEmail", acc.username);
+    sessionStorage.setItem("empName", acc.name);
+    sessionStorage.setItem("role", data.role.name);
+
+    // Navigate to dashboard
+    navigate("/dashboard");
+  } catch (err) {
+    console.error("Login error:", err);
+    setShowFirstClickMessage(false);
+    setShowErrorPopup(true);
+  } finally {
+    setIsLoading(false);
+  }
+};
+
           {/* Error Popup Modal */}
       {showErrorPopup && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
