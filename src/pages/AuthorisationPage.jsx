@@ -35,7 +35,11 @@ const AuthPage = () => {
       }
 
       // Fetch user profile
-      const response = await fetch(`${BASE_URL}/employees/${acc.username}`);
+      // const response = await fetch(`${BASE_URL}/employees/${acc.username}`);
+      const response = await fetch(
+  `${BASE_URL}/employees/${encodeURIComponent(acc.username)}`
+);
+
       if (!response.ok) throw new Error("Profile fetch failed");
       
       const data = await response.json();
