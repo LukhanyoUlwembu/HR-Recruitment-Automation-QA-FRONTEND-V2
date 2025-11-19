@@ -57,6 +57,7 @@ const AuthPage = () => {
     sessionStorage.setItem("empEmail", acc.username);
     sessionStorage.setItem("empName", acc.name);
     sessionStorage.setItem("role", data.role.name);
+    console.log(acc.username)
 
     // Navigate to dashboard
     navigate("/dashboard");
