@@ -42,6 +42,7 @@ import SignUpPage from './pages/SignUp.jsx';
 import RecruiterNotifications from './pages/RecruiterNotifications.jsx';
 import ManageEmployees from './pages/ManageEmployees.jsx';
 import OfferReview from './pages/OfferReview.jsx';
+import MieProcessingForm from './pages/MIEForm.jsx';
 
 // Google Maps API Key
 const GOOGLE_MAPS_API_KEY = '&key=AIzaSyA0F0Wq5mWGpcB6Gbqj2Zl__nmUciUwK4I'; // Replace with actual key
@@ -117,6 +118,7 @@ const AppRoutes = () => (
     <Route path="/manage" element={<ManageEmployees />} />
     <Route path="/offer-approve/:id" element={<OfferReview />} />
     <Route path="/applicant-onboard/:applicationId" element={<ApplicantOnboarding />} />
+    <Route path="/mie" element={<MieProcessingForm />} />
   </Routes>
 );
 
