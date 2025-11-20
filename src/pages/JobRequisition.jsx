@@ -385,23 +385,25 @@ const jobRequisition = {
   lineManager: formData.lineManager,
   jobTitle: formData.jobTitle,
   created: formData.created,
-  department: formData.department,
+  department: formData.department,               // FIXED
   dateOfRequest: formData.dateOfRequest,
   expectedStartDate: formData.expectedStartDate,
   client: formData.client,
-  shortListingMethod: formData.shortlistingMethod,
-  currency: { id: Number(formData.currency) },   
+  shortListingMethod: formData.shortlistingMethod,  // FIXED
+  currency: { id: Number(formData.currency) },
   employmentType: formData.employmentType,
-  fixedTermMonths: formData.fixedTermContract , 
+  fixedTermMonths: formData.fixedTermContract
+    ? { id: Number(formData.fixedTermContract) }    // FIXED
+    : null,
   billingRate: parseFloat(formData.billingRate),
   positionType: formData.positionType,
   salaryBenchmark: parseFloat(formData.salaryBenchmark),
   salary: parseFloat(formData.salary),
   jobEducation: jobEducationList,
   jobSkills: selectedTags.map(tag => ({
-  skillName: { id: Number(tag.id) }
-})),
-  level: { id: Number(formData.experience) },   
+    skillName: { id: Number(tag.id) }
+  })),
+  level: { id: Number(formData.experience) },
   responsibilities: formData.keyResponsibilities,
 };
 
@@ -478,7 +480,7 @@ const jobRequisition = {
 
           <div className="grid grid-cols-2 gap-4">
              <RadioGroup errors={errors} label="New or replacement position?" name="positionType" options={['New', 'Replacement']} value={formData.positionType} onChange={handleChange} />
-            <RadioGroup errors={errors} label="Department or Client?" name="client" options={['Internal Department', 'External Client']} value={formData.client} onChange={handleChange} />
+            <RadioGroup errors={errors} label="Department or Client?" name="client" options={['Internal Department', 'External Client']} value={formData.department} onChange={handleChange} />
             <RadioGroup errors={errors} label="Pre-screening Method" name="shortlistingMethod" options={['Telephonic Interviews','Competency-based Assessments']} value={formData.shortlistingMethod} onChange={handleChange} />
             <RadioGroup errors={errors} label="Employment Type" name="employmentType" options={['Permanent', 'Fixed term contract']} value={formData.employmentType} onChange={handleChange}/>
             {formData.employmentType === 'Fixed term contract' && (
@@ -588,19 +590,25 @@ const jobRequisition = {
 
       
 
-        {/* Department */}
-        <div className="mb-3">
-        <label className="block text-gray-700 text-sm font-medium mb-2" htmlFor="department">Department</label>
-        <input
-            type="text"
-            id="department"
-            value={formData.client}
-            onChange={handleChange}
-            className="form-select appearance-none block w-full px-3 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-            placeholder="Enter department"
-        />
-        {errors.department && <p className="text-red-500 text-xs mt-1">{errors.department}</p>}
-        </div>
+{/* Department */}
+<div className="mb-3">
+  <label className="block text-gray-700 text-sm font-medium mb-2" htmlFor="department">Department</label>
+  <input
+      type="text"
+      id="department"
+      value={formData.department}   
+      onChange={(e) =>
+        setFormData(prev => ({
+          ...prev,
+          department: e.target.value,   
+        }))
+      }
+      className="form-select appearance-none block w-full px-3 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+      placeholder="Enter department"
+  />
+  {errors.department && <p className="text-red-500 text-xs mt-1">{errors.department}</p>}
+</div>
+
 
         {/* Reports To */}
         <div className="mb-3">
