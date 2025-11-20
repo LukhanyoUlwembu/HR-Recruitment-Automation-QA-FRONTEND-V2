@@ -480,7 +480,7 @@ const jobRequisition = {
 
           <div className="grid grid-cols-2 gap-4">
              <RadioGroup errors={errors} label="New or replacement position?" name="positionType" options={['New', 'Replacement']} value={formData.positionType} onChange={handleChange} />
-            <RadioGroup errors={errors} label="Department or Client?" name="client" options={['Internal Department', 'External Client']} value={formData.department} onChange={handleChange} />
+            <RadioGroup errors={errors} label="Department or Client?" name="client" options={['Internal Department', 'External Client']} value={formData.client} onChange={handleChange} />
             <RadioGroup errors={errors} label="Pre-screening Method" name="shortlistingMethod" options={['Telephonic Interviews','Competency-based Assessments']} value={formData.shortlistingMethod} onChange={handleChange} />
             <RadioGroup errors={errors} label="Employment Type" name="employmentType" options={['Permanent', 'Fixed term contract']} value={formData.employmentType} onChange={handleChange}/>
             {formData.employmentType === 'Fixed term contract' && (
