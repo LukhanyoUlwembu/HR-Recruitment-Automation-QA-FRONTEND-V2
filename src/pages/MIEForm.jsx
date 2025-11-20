@@ -74,7 +74,7 @@ export default function MieProcessingForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="max-w-4xl mx-auto my-10 space-y-10 p-6 md:p-10 bg-gradient-to-br from-gray-50 via-white to-gray-100 shadow-xl rounded-2xl"
+      className="w-full mx-auto my-0 space-y-10 p-6 md:p-10 bg-gradient-to-br from-gray-50 via-white to-gray-100 shadow-xl rounded-none min-h-screen"
     >
       <h1 className="text-2xl font-bold text-center text-gray-800 mb-4">
         MIE Background Screening Request Form
