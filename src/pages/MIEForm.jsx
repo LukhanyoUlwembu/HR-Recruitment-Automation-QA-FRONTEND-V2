@@ -66,7 +66,7 @@ export default function MieProcessingForm() {
       <label className="text-sm font-medium text-gray-700">{label}</label>
       <input
         {...props}
-        className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition shadow-sm"
+        className="max-w-[400px] border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition shadow-sm"
       />
     </div>
   );
